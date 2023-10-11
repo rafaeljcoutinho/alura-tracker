@@ -39,13 +39,14 @@
 <script>
 import { useStore } from "@/store";
 import { defineComponent, computed } from "vue";
-import { EXCLUIR_PROJETO } from "@/store/mutations-type";
+import { OBTER_PROJETOS, REMOVER_PROJETO } from "@/store/actions-type";
 
 export default defineComponent({
     // eslint-disable-next-line vue/multi-word-component-names
     name: 'Lista',
     setup() {
         const store = useStore()
+        store.dispatch(OBTER_PROJETOS)
         return {
             projetos: computed(() => store.state.projetos),
             store
@@ -53,7 +54,7 @@ export default defineComponent({
     },
     methods: {
         Delete(id){
-            this.store.commit(EXCLUIR_PROJETO, id)
+            this.store.dispatch(REMOVER_PROJETO, id)
         }
     }
 })
